@@ -54,7 +54,7 @@ module.exports = {
 
 
 
-      if (sameReactions.first().count < 3) return;
+      if (sameReactions.first().count !== 3) return;
 
       const starboardChannel = guild.channels.cache.find(channel => channel.name === 'starboard');
 
