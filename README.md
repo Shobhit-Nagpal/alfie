@@ -7,4 +7,4 @@ The way it works is that if any server member were to send a link in a message a
 
 There's also a fun functionality to add embed to a channel called 'starboard' in case 3 or more people were to star a message.
 
-For hosting, the bot uses Replit and Uptime Robot.
+For hosting, the bot uses Replit and Uptime Robot/Freshping.
