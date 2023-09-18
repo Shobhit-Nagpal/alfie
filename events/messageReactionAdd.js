@@ -35,6 +35,14 @@ module.exports = {
 
       if (!originalEmbed) {
         console.log('No embed found in the message.');
+        
+        const embed = new EmbedBuilder()
+            .setColor(0x0099FF)
+            .setAuthor({ name: `${message.author.username}`, iconURL: `${message.author.displayAvatarURL()}` })
+            .setDescription(`${message.content}`)
+            .setTimestamp()
+
+        await contentChannel.send({ embeds: [embed] });
         return;
       }
 
