@@ -21,13 +21,13 @@ module.exports = {
 
       let thumbnail = getThumbnailURLFromMessage(message.content);
       if (thumbnail === null) {
-        thumbnail = 'https://funnydogsgallery.com/wp-content/uploads/2016/02/smile-dog.jpg';
+        thumbnail = 'https://blogger.googleusercontent.com/img/a/AVvXsEiRVcJR53FYKvT45piDehmWJr_FMX-RnPalZ4DfU_dLpE1Ajcda75etoQpxj61g7n_S-9WSaX8mHI9fuodNQWcn5vEo7OYEOr0Mdha7rZgRdyfvZWEqbwxSZrOVP2X4gV01CQBpucAHLPkRxOcdOlQQHRmnNjo-A-J2wzi7zZ8jMFF7BP97jTxd4ZCKUw=w640-h360';
       }
 
-      const contentChannel = guild.channels.cache.find(channel => channel.name === 'content');
+      const contentChannel = guild.channels.cache.find(channel => channel.name === 'village-library');
 
       if (!contentChannel) {
-        console.log('Content channel not found. Please create a channel named "content".');
+        console.log('Village-library channel not found. Please create a channel named "village-library".');
         return;
       }
 
@@ -35,25 +35,27 @@ module.exports = {
 
       if (!originalEmbed) {
         console.log('No embed found in the message.');
-        
+
         const embed = new EmbedBuilder()
-            .setColor(0x0099FF)
-            .setAuthor({ name: `${message.author.username}`, iconURL: `${message.author.displayAvatarURL()}` })
-            .setDescription(`${message.content}`)
-            .setTimestamp()
+          .setColor(0x0099FF)
+          .setAuthor({ name: `${message.author.username}`, iconURL: `${message.author.displayAvatarURL()}` })
+          .setDescription(`${message.content}`)
+          .setTimestamp()
 
         await contentChannel.send({ embeds: [embed] });
         return;
       }
 
-       const embed = new EmbedBuilder()
-                .setColor(0x0099FF)
-                .setAuthor({name: `${message.author.username}`, iconURL: `${message.author.displayAvatarURL()}`})
-                .setTitle(originalEmbed.title)
-                .setURL(originalEmbed.url)
-                .setDescription(`${message.content}`)
-                .setTimestamp()
-                .setImage(originalEmbed.thumbnail.url);
+      const finalThumbnail = originalEmbed.thumbnail ? originalEmbed.thumbnail.url : thumbnail;
+
+      const embed = new EmbedBuilder()
+        .setColor(0x0099FF)
+        .setAuthor({ name: `${message.author.username}`, iconURL: `${message.author.displayAvatarURL()}` })
+        .setTitle(originalEmbed.data.title)
+        .setURL(originalEmbed.data.url)
+        .setDescription(`${message.content}`)
+        .setTimestamp()
+        .setImage(`${finalThumbnail}`);
 
       await contentChannel.send({ embeds: [embed] });
     }
@@ -64,10 +66,10 @@ module.exports = {
 
       if (sameReactions.first().count !== 3) return;
 
-      const starboardChannel = guild.channels.cache.find(channel => channel.name === 'starboard');
+      const starboardChannel = guild.channels.cache.find(channel => channel.name === 'village-notice-board');
 
       if (!starboardChannel) {
-        console.log('Content channel not found. Please create a channel named "starboard".');
+        console.log('Village-notice-board channel not found. Please create a channel named "village-notice-board".');
         return;
       }
 
@@ -85,3 +87,4 @@ module.exports = {
     }
   },
 };
+
