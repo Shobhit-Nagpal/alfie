@@ -1,7 +1,9 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const dotenv = require("dotenv");
+dotenv.config();
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
-const { token } = require('./config.json');
+const token = process.env.TOKEN; 
 const keepAlive = require('./server');
 
 const client = new Client({
